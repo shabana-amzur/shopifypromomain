@@ -5,14 +5,25 @@ const CTA: React.FC = () => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      setSubmitted(true);
-      // Simulate API call
-      setTimeout(() => {
-        setSubmitted(true);
-      }, 500);
+      try {
+        const res = await fetch('http://localhost:5050/api/join-waitlist', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+        if (res.ok) {
+          setSubmitted(true);
+        } else {
+          alert('Submission failed. Please try again.');
+        }
+      } catch (err) {
+        alert('Network error. Please try again.');
+      }
     }
   };
 
