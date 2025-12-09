@@ -9,6 +9,14 @@ const CTA: React.FC = () => {
     e.preventDefault();
     if (email) {
       try {
+        // First test if the API is working at all
+        console.log('Testing API connection...');
+        const testRes = await fetch('/api/test');
+        const testData = await testRes.json();
+        console.log('API Test Response:', testData);
+        
+        // Now try the actual submission
+        console.log('Submitting email:', email);
         const res = await fetch('/api/join', {
           method: 'POST',
           headers: {
@@ -21,6 +29,7 @@ const CTA: React.FC = () => {
         });
         
         const data = await res.json();
+        console.log('Submission Response:', res.status, data);
         
         if (res.ok) {
           setSubmitted(true);
@@ -30,7 +39,7 @@ const CTA: React.FC = () => {
         }
       } catch (err) {
         console.error('Network Error:', err);
-        alert('Network error. Please try again.');
+        alert(`Network error: ${err.message}`);
       }
     }
   };

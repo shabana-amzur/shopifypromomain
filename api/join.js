@@ -1,15 +1,19 @@
 const { Client } = require('pg');
 const nodemailer = require('nodemailer');
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure: process.env.SMTP_PORT === '465',
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+// Create transporter only if SMTP env vars are available
+let transporter = null;
+if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+  transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT) || 587,
+    secure: process.env.SMTP_PORT === '465',
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+}
 
 module.exports = async function handler(req, res) {
   // Add CORS headers
@@ -26,6 +30,12 @@ module.exports = async function handler(req, res) {
   }
 
   console.log('API called with body:', req.body);
+  console.log('Environment check:', {
+    DATABASE_URL: process.env.DATABASE_URL ? 'Available' : 'Missing',
+    SMTP_HOST: process.env.SMTP_HOST ? 'Available' : 'Missing',
+    SMTP_USER: process.env.SMTP_USER ? 'Available' : 'Missing',
+    NOTIFY_TO: process.env.NOTIFY_TO ? 'Available' : 'Missing'
+  });
 
   try {
     const { email, sourcePage } = req.body;
@@ -64,20 +74,27 @@ module.exports = async function handler(req, res) {
     const notifyTo = process.env.NOTIFY_TO;
     const from = process.env.SMTP_FROM || process.env.SMTP_USER;
 
-    if (notifyTo) {
+    if (notifyTo && transporter) {
       console.log('Sending notification email...');
-      await transporter.sendMail({
-        from,
-        to: notifyTo,
-        subject: 'New ShopifyPromo Waitlist Signup',
-        html: `
-          <p>New waitlist signup:</p>
-          <p><strong>Email:</strong> ${email}</p>
-          ${sourcePage ? `<p><strong>Source page:</strong> ${sourcePage}</p>` : ''}
-          <p>Time: ${new Date().toISOString()}</p>
-        `,
-      });
-      console.log('Notification email sent successfully');
+      try {
+        await transporter.sendMail({
+          from,
+          to: notifyTo,
+          subject: 'New ShopifyPromo Waitlist Signup',
+          html: `
+            <p>New waitlist signup:</p>
+            <p><strong>Email:</strong> ${email}</p>
+            ${sourcePage ? `<p><strong>Source page:</strong> ${sourcePage}</p>` : ''}
+            <p>Time: ${new Date().toISOString()}</p>
+          `,
+        });
+        console.log('Notification email sent successfully');
+      } catch (emailError) {
+        console.error('Email sending failed:', emailError);
+        // Don't fail the request if email fails - user signup is more important
+      }
+    } else {
+      console.log('Email notification skipped - missing configuration');
     }
 
     return res.status(200).json({ 
