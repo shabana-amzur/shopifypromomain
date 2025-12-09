@@ -67,8 +67,17 @@ export default async function handler(req, res) {
       ssl: { rejectUnauthorized: false },
     });
 
-    await client.connect();
-    console.log('Database connected successfully');
+    try {
+      await client.connect();
+      console.log('Database connected successfully');
+    } catch (dbError) {
+      console.error('Database connection failed:', dbError);
+      return res.status(500).json({ 
+        message: 'Database connection failed. Please try again later.',
+        error: dbError.message,
+        code: dbError.code
+      });
+    }
 
     const result = await client.query(
       `INSERT INTO subscribers (email, source_page)
