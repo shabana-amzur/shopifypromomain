@@ -72,13 +72,17 @@ module.exports = async function handler(req, res) {
     console.log('Database operation completed, rows affected:', result.rowCount);
 
     const notifyTo = process.env.NOTIFY_TO;
-    const from = process.env.SMTP_FROM || process.env.SMTP_USER;
+    // Use SMTP_USER for FROM to avoid authentication issues
+    const from = process.env.SMTP_USER;
+    const replyTo = process.env.SMTP_FROM;
 
     if (notifyTo && transporter) {
       console.log('Sending notification email...');
+      console.log('Email config:', { from, replyTo, to: notifyTo });
       try {
         await transporter.sendMail({
-          from,
+          from: `"ShopifyPromo" <${from}>`,
+          replyTo: replyTo,
           to: notifyTo,
           subject: 'New ShopifyPromo Waitlist Signup',
           html: `
