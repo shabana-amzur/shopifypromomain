@@ -1,22 +1,41 @@
 import { Client } from 'pg';
-import nodemailer from 'nodemailer';
+import { google } from 'googleapis';
+import fs from 'fs';
 
-// Create transporter only if SMTP env vars are available
-let transporter = null;
-try {
-  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-    transporter = nodemailer.createTransporter({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: process.env.SMTP_PORT === '465',
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-  }
-} catch (err) {
-  console.error('SMTP setup failed:', err);
+// Load OAuth2 credentials and token
+const CLIENT_ID = process.env.GMAIL_CLIENT_ID;
+const CLIENT_SECRET = process.env.GMAIL_CLIENT_SECRET;
+const REDIRECT_URI = process.env.GMAIL_REDIRECT_URI;
+const TOKEN_PATH = 'gmail-token.json';
+
+const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+const token = JSON.parse(fs.readFileSync(TOKEN_PATH));
+oAuth2Client.setCredentials(token);
+
+async function sendGmailNotification(to, subject, html) {
+  const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
+  const messageParts = [
+    `From: "ShopifyPromo" <${process.env.GMAIL_USER}>`,
+    `To: ${to}`,
+    `Subject: ${subject}`,
+    'Content-Type: text/html; charset=utf-8',
+    '',
+    html,
+  ];
+  const message = messageParts.join('\n');
+
+  const encodedMessage = Buffer.from(message)
+    .toString('base64')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+
+  await gmail.users.messages.send({
+    userId: 'me',
+    requestBody: {
+      raw: encodedMessage,
+    },
+  });
 }
 
 export default async function handler(req, res) {
@@ -92,20 +111,19 @@ export default async function handler(req, res) {
 
     // Send notification email if configured
     let emailNotificationError = null;
-    if (transporter && process.env.NOTIFY_TO) {
+    if (process.env.NOTIFY_TO) {
       try {
         console.log('Sending notification email...');
-        await transporter.sendMail({
-          from: 'shabana.sheik@amzur.com',
-          to: process.env.NOTIFY_TO,
-          subject: 'New ShopifyPromo Waitlist Signup',
-          html: `
+        await sendGmailNotification(
+          process.env.NOTIFY_TO,
+          'New ShopifyPromo Waitlist Signup',
+          `
             <p>New waitlist signup:</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Source page:</strong> ${sourcePage || 'waitlist'}</p>
             <p><strong>Time:</strong> ${new Date().toISOString()}</p>
-          `,
-        });
+          `
+        );
         console.log('Notification email sent successfully');
       } catch (emailError) {
         console.error('Email sending failed:', emailError);
