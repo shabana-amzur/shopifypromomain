@@ -9,12 +9,15 @@ const CTA: React.FC = () => {
     e.preventDefault();
     if (email) {
       try {
-        const res = await fetch('http://localhost:5050/api/join-waitlist', {
+        const res = await fetch('/api/join', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ 
+            email,
+            sourcePage: 'waitlist'
+          }),
         });
         if (res.ok) {
           setSubmitted(true);
