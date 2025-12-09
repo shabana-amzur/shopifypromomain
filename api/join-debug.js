@@ -1,4 +1,6 @@
-module.exports = async function handler(req, res) {
+import { Client } from 'pg';
+
+export default async function handler(req, res) {
   // Add CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -41,8 +43,7 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // Try to import and connect to database
-    const { Client } = require('pg');
+    // Try to connect to database
     const client = new Client({
       connectionString: process.env.DATABASE_URL,
       ssl: { rejectUnauthorized: false },

@@ -1,5 +1,5 @@
-const { Client } = require('pg');
-const nodemailer = require('nodemailer');
+import { Client } from 'pg';
+import nodemailer from 'nodemailer';
 
 // Create transporter only if SMTP env vars are available
 let transporter = null;
@@ -19,7 +19,7 @@ try {
   console.error('SMTP setup failed:', err);
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   // Add CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');

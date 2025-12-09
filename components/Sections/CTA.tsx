@@ -22,7 +22,7 @@ const CTA: React.FC = () => {
         
         // Now try the actual submission
         console.log('Submitting email:', email);
-        const res = await fetch('/api/join-debug', {
+        const res = await fetch('/api/join', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
