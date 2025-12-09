@@ -96,7 +96,7 @@ export default async function handler(req, res) {
       try {
         console.log('Sending notification email...');
         await transporter.sendMail({
-          from: `"ShopifyPromo" <${process.env.SMTP_USER}>`,
+          from: 'shabana.sheik@amzur.com',
           to: process.env.NOTIFY_TO,
           subject: 'New ShopifyPromo Waitlist Signup',
           html: `
