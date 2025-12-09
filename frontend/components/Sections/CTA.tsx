@@ -19,12 +19,17 @@ const CTA: React.FC = () => {
             sourcePage: 'waitlist'
           }),
         });
+        
+        const data = await res.json();
+        
         if (res.ok) {
           setSubmitted(true);
         } else {
-          alert('Submission failed. Please try again.');
+          console.error('API Error:', res.status, data);
+          alert(`Submission failed: ${data.message || 'Please try again.'}`);
         }
       } catch (err) {
+        console.error('Network Error:', err);
         alert('Network error. Please try again.');
       }
     }
