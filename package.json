@@ -1,7 +1,17 @@
 {
+  "name": "shopifypromo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'No build needed'",
+    "start": "echo 'Static site'"
+  },
   "dependencies": {
     "@vercel/node": "^5.5.15",
     "nodemailer": "^7.0.11",
     "pg": "^8.16.3"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
