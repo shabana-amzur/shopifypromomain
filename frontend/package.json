@@ -9,10 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.22",
     "mysql2": "^3.15.3",
     "nodemailer": "^7.0.11",
+    "postcss": "^8.5.6",
     "react": "^19.2.1",
-    "react-dom": "^19.2.1"
+    "react-dom": "^19.2.1",
+    "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
