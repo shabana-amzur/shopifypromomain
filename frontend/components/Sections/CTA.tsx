@@ -11,9 +11,14 @@ const CTA: React.FC = () => {
       try {
         // First test if the API is working at all
         console.log('Testing API connection...');
-        const testRes = await fetch('/api/test');
-        const testData = await testRes.json();
-        console.log('API Test Response:', testData);
+        const testRes = await fetch('/api/hello');
+        console.log('API Test Status:', testRes.status);
+        if (testRes.ok) {
+          const testData = await testRes.json();
+          console.log('API Test Response:', testData);
+        } else {
+          console.error('API Test Failed:', testRes.status, testRes.statusText);
+        }
         
         // Now try the actual submission
         console.log('Submitting email:', email);
