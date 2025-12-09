@@ -91,6 +91,7 @@ export default async function handler(req, res) {
     console.log('Database operation completed, rows affected:', result.rowCount);
 
     // Send notification email if configured
+    let emailNotificationError = null;
     if (transporter && process.env.NOTIFY_TO) {
       try {
         console.log('Sending notification email...');
@@ -108,13 +109,14 @@ export default async function handler(req, res) {
         console.log('Notification email sent successfully');
       } catch (emailError) {
         console.error('Email sending failed:', emailError);
-        // Don't fail the request if email fails - user signup is more important
+        emailNotificationError = emailError.message || String(emailError);
       }
     }
 
     return res.status(200).json({ 
       message: 'Subscribed successfully.',
-      success: true 
+      success: true,
+      emailNotificationError // will be null if no error, or error message if failed
     });
 
   } catch (error) {
