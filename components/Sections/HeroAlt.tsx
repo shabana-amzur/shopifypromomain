@@ -102,7 +102,7 @@ const HeroAlt: React.FC = () => {
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-200 bg-black" style={{ minHeight: '500px' }}>
               <iframe 
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/0ZAAQGUqua0?autoplay=1&mute=1&loop=1&playlist=0ZAAQGUqua0&controls=0&modestbranding=1&rel=0&showinfo=0"
+                src="https://www.youtube.com/embed/0ZAAQGUqua0?autoplay=1&mute=0&loop=1&playlist=0ZAAQGUqua0&controls=1&modestbranding=1&rel=0&showinfo=0"
                 title="ShopifyPromoHub Demo"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -113,7 +113,7 @@ const HeroAlt: React.FC = () => {
               onClick={() => setIsVideoOpen(true)}
               className="mt-4 text-brand-600 hover:text-brand-700 font-semibold text-sm underline underline-offset-4 transition-colors"
             >
-              Watch with controls →
+              Watch fullscreen →
             </button>
           </div>
 
