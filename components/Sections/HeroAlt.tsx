@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { IconX } from '../Icons';
 
 const HeroAlt: React.FC = () => {
@@ -6,6 +6,21 @@ const HeroAlt: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Attempt to play video with sound
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      videoRef.current.play().catch(() => {
+        // If unmuted autoplay fails, try muted
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          videoRef.current.play();
+        }
+      });
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,19 +51,17 @@ const HeroAlt: React.FC = () => {
   
   return (
     <>
-      <section id="home-alt" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-orange-50/70 via-white to-orange-50/30 pt-16 px-4 py-20">
+      <section id="home-alt" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-32 px-4 py-20">
         
-        {/* --- Background Texture --- */}
-        <div className="absolute inset-0 z-0 opacity-[0.4]" 
+        {/* --- Grid Background Image --- */}
+        <div className="absolute inset-0 z-0 opacity-100" 
              style={{ 
-               backgroundImage: `radial-gradient(#fdba74 0.8px, transparent 0.8px)`, 
-               backgroundSize: '40px 40px' 
+               backgroundImage: `url(/grid-bg.png)`, 
+               backgroundSize: 'auto 262px',
+               backgroundPosition: 'center top',
+               backgroundRepeat: 'no-repeat'
              }}>
         </div>
-
-        {/* --- Animated Background Blobs --- */}
-        <div className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] md:w-[50rem] md:h-[50rem] bg-orange-100/40 rounded-full mix-blend-multiply filter blur-[80px] md:blur-[120px] animate-blob"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] md:w-[50rem] md:h-[50rem] bg-[#95BF47]/30 rounded-full mix-blend-multiply filter blur-[80px] md:blur-[120px] animate-blob animation-delay-2000"></div>
 
         {/* =========================================
             CENTERED VERTICAL LAYOUT
@@ -56,19 +69,19 @@ const HeroAlt: React.FC = () => {
         <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center space-y-8">
           
           {/* Main Heading */}
-          <h1 className="font-black tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-sm" style={{ fontSize: '4rem' }}>
+          <h1 className="font-semibold tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-sm" style={{ fontSize: '4rem' }}>
             <span className="block text-[#0A2540]">Smarter Promotions</span>
             <span className="block text-[#0A2540]">for Shopify</span>
             <span className="block text-[#FF5A3C] mt-1">One Powerful App.</span>
           </h1>
 
           {/* Description */}
-          <p className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-3xl animate-fade-in-up font-medium" style={{ animationDelay: '0.1s' }}>
-            Advanced discounts, stackable offers, and fully synchronized campaigns. No code required.
+          <p className="text-slate-600 leading-relaxed max-w-3xl animate-fade-in-up font-medium" style={{ animationDelay: '0.1s', fontSize: '1.2rem', lineHeight: '1rem' }}>
+            Join the waitlist to get early access, launch updates, and special beta perks
           </p>
 
           {/* Join Waitlist Form */}
-          <div className="w-full max-w-md animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="w-full max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             {submitMessage ? (
               <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
                 <p className="text-green-800 font-semibold">{submitMessage}</p>
@@ -86,7 +99,7 @@ const HeroAlt: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-8 py-4 bg-brand-500 text-white font-bold rounded-xl hover:bg-brand-600 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                  className="px-8 py-4 bg-[#95BF47] text-white font-bold rounded-xl hover:bg-slate-900 hover:text-white shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap animate-pulse-btn"
                 >
                   {isSubmitting ? 'Joining...' : 'Join Waitlist'}
                 </button>
@@ -98,25 +111,34 @@ const HeroAlt: React.FC = () => {
           </div>
 
           {/* Autoplay Video */}
-          <div className="w-full max-w-6xl animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-200 bg-black" style={{ minHeight: '500px' }}>
-              <iframe 
+          <div className="w-full max-w-6xl animate-fade-in-up relative" style={{ animationDelay: '0.3s' }}>
+            <div className="relative aspect-video rounded-2xl overflow-hidden bg-black" style={{ 
+              minHeight: '500px',
+              boxShadow: '0 20px 60px rgba(147, 51, 234, 0.4), 0 10px 30px rgba(147, 51, 234, 0.4)'
+            }}>
+              <video
+                ref={videoRef}
+                src="/demo-video.mp4"
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/0ZAAQGUqua0?autoplay=1&mute=0&loop=1&playlist=0ZAAQGUqua0&controls=1&modestbranding=1&rel=0&showinfo=0"
-                title="ShopifyPromoHub Demo"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+                autoPlay
+                loop
+                playsInline
+                controls
+              />
             </div>
-            <button
-              onClick={() => setIsVideoOpen(true)}
-              className="mt-4 text-brand-600 hover:text-brand-700 font-semibold text-sm underline underline-offset-4 transition-colors"
-            >
-              Watch fullscreen →
-            </button>
           </div>
 
+        </div>
+
+        {/* --- Bottom Grid Background Image --- */}
+        <div className="absolute left-0 right-0 z-0 opacity-100 h-[262px] pointer-events-none" 
+             style={{ 
+               backgroundImage: `url(/grid-bottom-bg.png)`, 
+               backgroundSize: 'auto 262px',
+               backgroundPosition: 'center bottom',
+               backgroundRepeat: 'no-repeat',
+               bottom: '-100px'
+             }}>
         </div>
 
       </section>

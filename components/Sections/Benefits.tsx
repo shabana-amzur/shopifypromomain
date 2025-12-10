@@ -3,9 +3,9 @@ import { BENEFITS } from '../../constants';
 import { BenefitItem } from '../../types';
 
 const BenefitCard: React.FC<{ benefit: BenefitItem }> = ({ benefit }) => (
-  <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow duration-300 h-full">
-    <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mb-6">
-      {benefit.icon}
+  <div className="bg-gradient-to-br from-orange-50 to-orange-100/50 p-8 rounded-2xl border border-orange-200 shadow-sm hover:shadow-md transition-shadow duration-300 h-full">
+    <div className="mb-4">
+      <span className="text-xs font-bold text-brand-600 uppercase tracking-wider">BENEFIT</span>
     </div>
     <h3 className="text-xl font-bold text-slate-900 mb-3">{benefit.title}</h3>
     <p className="text-slate-600 leading-relaxed">{benefit.description}</p>

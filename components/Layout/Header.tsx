@@ -70,8 +70,8 @@ const Header: React.FC = () => {
             ))}
             <Button 
               variant="primary" 
-              className="rounded-full px-6 py-2 text-sm shadow-none"
-              onClick={(e) => handleNavClick(e as any, '#join')}
+              className="rounded-full px-6 py-2 text-sm shadow-none bg-[#95BF47] hover:bg-[#86ac3d] border-[#95BF47]"
+              onClick={(e) => handleNavClick(e as any, '#home-alt')}
             >
               Join Waitlist
             </Button>
@@ -105,8 +105,8 @@ const Header: React.FC = () => {
               </a>
             ))}
              <a
-                href="#join"
-                onClick={(e) => handleNavClick(e, '#join')}
+                href="#home-alt"
+                onClick={(e) => handleNavClick(e, '#home-alt')}
                 className="block px-4 py-3 rounded-lg text-base font-bold text-brand-600 bg-brand-50 mt-2"
               >
                 Join Waitlist

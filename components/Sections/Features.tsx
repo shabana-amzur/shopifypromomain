@@ -1,7 +1,6 @@
 import React from 'react';
 import { FEATURES, BENEFITS } from '../../constants';
 import { FeatureItem, BenefitItem } from '../../types';
-import { IconArrowRight } from '../Icons';
 
 interface CombinedItem {
   feature: FeatureItem;
@@ -27,17 +26,12 @@ const FeatureBenefitCard: React.FC<{ item: CombinedItem }> = ({ item }) => (
     <div className="border-t border-slate-100 my-6"></div>
 
     {/* Benefit Content */}
-    <div className="flex items-start">
-      <div className="flex-shrink-0 mr-3 mt-1">
-        <div className="w-5 h-5 rounded-full bg-[#95BF47]/10 flex items-center justify-center">
-             <IconArrowRight className="w-3 h-3 text-[#95BF47]" />
-        </div>
-      </div>
+    <div className="bg-brand-500 p-4 rounded-xl">
       <div>
-        <span className="block text-[11px] font-bold text-[#95BF47] tracking-widest uppercase mb-1">
-          Benefit
+        <span className="block text-[15px] font-bold text-white tracking-widest uppercase mb-2">
+          BENEFIT
         </span>
-        <p className="text-sm font-medium text-slate-700 leading-relaxed">
+        <p className="text-sm font-medium text-white leading-relaxed">
           {item.benefit.description}
         </p>
       </div>
@@ -53,13 +47,13 @@ const Features: React.FC = () => {
   }));
 
   return (
-    <section id="features" className="py-16 md:py-24 bg-white">
+    <section id="features" className="pt-16 md:pt-24 pb-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-base text-brand-600 font-semibold tracking-wide uppercase mb-2">
             Why Choose ShopifyPromoHub
           </h2>
-          <p className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+          <p className="text-3xl md:text-5xl font-semibold text-slate-900 mb-6 tracking-tight">
             Powerful Features, <br className="hidden md:block" /> Clear Benefits
           </p>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">

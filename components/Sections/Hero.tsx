@@ -48,19 +48,17 @@ const Hero: React.FC = () => {
   
   return (
     <>
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-orange-50/70 via-white to-orange-50/30 pt-16">
+      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-16">
         
-        {/* --- Background Texture --- */}
+        {/* --- Grid Background Image --- */}
         <div className="absolute inset-0 z-0 opacity-[0.4]" 
              style={{ 
-               backgroundImage: `radial-gradient(#fdba74 0.8px, transparent 0.8px)`, 
-               backgroundSize: '40px 40px' 
+               backgroundImage: `url(/grid-bg.png)`, 
+               backgroundSize: 'auto 262px',
+               backgroundPosition: 'center top',
+               backgroundRepeat: 'no-repeat'
              }}>
         </div>
-
-        {/* --- Animated Background Blobs --- */}
-        <div className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] md:w-[50rem] md:h-[50rem] bg-orange-100/40 rounded-full mix-blend-multiply filter blur-[80px] md:blur-[120px] animate-blob"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] md:w-[50rem] md:h-[50rem] bg-[#95BF47]/30 rounded-full mix-blend-multiply filter blur-[80px] md:blur-[120px] animate-blob animation-delay-2000"></div>
 
         {/* =========================================
             ORBIT LAYER
@@ -160,7 +158,7 @@ const Hero: React.FC = () => {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6 animate-fade-in-up drop-shadow-sm" style={{ animationDelay: '0.1s' }}>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-semibold text-slate-900 tracking-tight leading-[1.1] mb-6 animate-fade-in-up drop-shadow-sm" style={{ animationDelay: '0.1s' }}>
             Smarter Promotions for Shopify <br className="hidden sm:block"/>
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-brand-500">
               One Powerful App.
