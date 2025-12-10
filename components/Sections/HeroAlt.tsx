@@ -95,7 +95,6 @@ const HeroAlt: React.FC = () => {
             MAIN CONTENT - Two Column Layout
            ========================================= */}
         <div className="relative z-10 w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-12">
-        <div className="relative z-10 w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-12">
           
           {/* =========================================
               LEFT SIDE - Text Content & CTAs
