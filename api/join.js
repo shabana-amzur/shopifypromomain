@@ -83,6 +83,35 @@ export default async function handler(req, res) {
     await client.end();
     console.log('Database operation completed, rows affected:', result.rowCount);
 
+    // Send thank you email to the user
+    let userEmailError = null;
+    try {
+      console.log('Sending thank you email to user...');
+      await sendResendNotification(
+        email,
+        'Thanks for Joining ShopifyPromoHub!',
+        `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2 style="color: #0A2540; margin-bottom: 20px;">Thank You for Joining the Waitlist!</h2>
+            <p style="color: #334155; font-size: 16px; line-height: 1.6;">
+              We're excited to have you on board! You're now part of an exclusive group getting early access to ShopifyPromoHub.
+            </p>
+            <p style="color: #334155; font-size: 16px; line-height: 1.6;">
+              We'll keep you updated on our launch progress and let you know as soon as we're ready to welcome you.
+            </p>
+            <p style="color: #334155; font-size: 16px; line-height: 1.6; margin-top: 30px;">
+              Best regards,<br/>
+              <strong>The ShopifyPromoHub Team</strong>
+            </p>
+          </div>
+        `
+      );
+      console.log('Thank you email sent to user successfully');
+    } catch (emailError) {
+      console.error('User thank you email failed:', emailError);
+      userEmailError = emailError.message || String(emailError);
+    }
+
     // Send notification email if configured
     let emailNotificationError = null;
     if (process.env.NOTIFY_TO) {
