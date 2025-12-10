@@ -1,45 +1,7 @@
 import { Client } from 'pg';
-import { google } from 'googleapis';
-import fs from 'fs';
 import { Resend } from 'resend';
 
-// Load OAuth2 credentials and token
-const CLIENT_ID = process.env.GMAIL_CLIENT_ID;
-const CLIENT_SECRET = process.env.GMAIL_CLIENT_SECRET;
-const REDIRECT_URI = process.env.GMAIL_REDIRECT_URI;
-const TOKEN_PATH = 'gmail-token.json';
-
-const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-const token = JSON.parse(fs.readFileSync(TOKEN_PATH));
-oAuth2Client.setCredentials(token);
-
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-async function sendGmailNotification(to, subject, html) {
-  const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
-  const messageParts = [
-    `From: "ShopifyPromo" <${process.env.GMAIL_USER}>`,
-    `To: ${to}`,
-    `Subject: ${subject}`,
-    'Content-Type: text/html; charset=utf-8',
-    '',
-    html,
-  ];
-  const message = messageParts.join('\n');
-
-  const encodedMessage = Buffer.from(message)
-    .toString('base64')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
-
-  await gmail.users.messages.send({
-    userId: 'me',
-    requestBody: {
-      raw: encodedMessage,
-    },
-  });
-}
 
 async function sendResendNotification(to, subject, html) {
   await resend.emails.send({
