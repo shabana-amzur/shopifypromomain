@@ -24,7 +24,7 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Poppins', 'system-ui', 'sans-serif'],
       },
       animation: {
         'orbit-enter': 'orbitEnter 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
