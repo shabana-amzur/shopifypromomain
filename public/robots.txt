@@ -1,0 +1,9 @@
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://shopifypromohub.com/sitemap.xml
+
+# Disallow crawling of API routes
+Disallow: /api/
