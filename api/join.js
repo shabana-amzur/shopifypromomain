@@ -1,7 +1,41 @@
 import { Client } from 'pg';
 import { Resend } from 'resend';
+import { google } from 'googleapis';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Google Sheets integration
+async function addToGoogleSheet(email, sourcePage, timestamp) {
+  try {
+    // Check if Google Sheets is configured
+    if (!process.env.GOOGLE_SHEETS_CREDENTIALS || !process.env.GOOGLE_SHEET_ID) {
+      console.log('Google Sheets not configured, skipping...');
+      return;
+    }
+
+    const credentials = JSON.parse(process.env.GOOGLE_SHEETS_CREDENTIALS);
+    const auth = new google.auth.GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+
+    const sheets = google.sheets({ version: 'v4', auth });
+    
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: 'Sheet1!A:C', // Adjust range as needed
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [[timestamp, email, sourcePage || 'waitlist']],
+      },
+    });
+
+    console.log('Successfully added to Google Sheet');
+  } catch (error) {
+    console.error('Failed to add to Google Sheet:', error.message);
+    // Don't throw error - we don't want to fail the API call if Google Sheets fails
+  }
+}
 
 async function sendResendNotification(to, subject, html) {
   await resend.emails.send({
@@ -82,6 +116,10 @@ export default async function handler(req, res) {
 
     await client.end();
     console.log('Database operation completed, rows affected:', result.rowCount);
+
+    // Add to Google Sheet
+    const timestamp = new Date().toISOString();
+    await addToGoogleSheet(email, sourcePage, timestamp);
 
     // Send thank you email to the user
     let userEmailError = null;
