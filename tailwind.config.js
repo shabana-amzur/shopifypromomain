@@ -36,6 +36,7 @@ module.exports = {
         'blob': 'blob 7s infinite',
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
         'scale-up': 'scaleUp 0.3s ease-out forwards',
+        'float': 'float 3s ease-in-out infinite',
       },
       keyframes: {
         orbitEnter: {
@@ -75,6 +76,10 @@ module.exports = {
         scaleUp: {
           '0%': { opacity: '0', transform: 'scale(0.95)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-20px)' },
         }
       }
     },
