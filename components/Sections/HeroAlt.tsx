@@ -56,16 +56,15 @@ const HeroAlt: React.FC = () => {
         <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center space-y-8">
           
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.1] animate-fade-in-up drop-shadow-sm">
-            Smarter Promotions for Shopify
+          <h1 className="text-5xl md:text-6xl lg:text-8xl font-black tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-sm">
+            <span className="block text-[#0A2540]">Smarter Promotions</span>
+            <span className="block text-[#0A2540]">for Shopify</span>
+            <span className="block text-[#FF5A3C] mt-1">One Powerful App.</span>
           </h1>
 
           {/* Description */}
           <p className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-3xl animate-fade-in-up font-medium" style={{ animationDelay: '0.1s' }}>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-brand-500 font-bold">
-              One Powerful App.
-            </span>
-            {' '}Advanced discounts, stackable offers, and fully synchronized campaigns. No code required.
+            Advanced discounts, stackable offers, and fully synchronized campaigns. No code required.
           </p>
 
           {/* Join Waitlist Form */}
@@ -99,8 +98,8 @@ const HeroAlt: React.FC = () => {
           </div>
 
           {/* Autoplay Video */}
-          <div className="w-full max-w-3xl animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-200 bg-black">
+          <div className="w-full max-w-6xl animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-200 bg-black" style={{ minHeight: '500px' }}>
               <iframe 
                 className="w-full h-full"
                 src="https://www.youtube.com/embed/0ZAAQGUqua0?autoplay=1&mute=1&loop=1&playlist=0ZAAQGUqua0&controls=0&modestbranding=1&rel=0&showinfo=0"
