@@ -88,8 +88,11 @@ export default async function handler(req, res) {
     if (process.env.NOTIFY_TO) {
       try {
         console.log('Sending notification email...');
+        // Split NOTIFY_TO by comma to support multiple recipients
+        const recipients = process.env.NOTIFY_TO.split(',').map(email => email.trim());
+        
         await sendResendNotification(
-          process.env.NOTIFY_TO,
+          recipients,
           'New ShopifyPromo Waitlist Signup',
           `
             <p>New waitlist signup:</p>
@@ -98,7 +101,7 @@ export default async function handler(req, res) {
             <p><strong>Time:</strong> ${new Date().toISOString()}</p>
           `
         );
-        console.log('Notification email sent successfully');
+        console.log('Notification email sent successfully to:', recipients.join(', '));
       } catch (emailError) {
         console.error('Email sending failed:', emailError);
         emailNotificationError = emailError.message || String(emailError);
