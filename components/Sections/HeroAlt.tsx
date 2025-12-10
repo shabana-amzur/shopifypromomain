@@ -51,7 +51,7 @@ const HeroAlt: React.FC = () => {
   
   return (
     <>
-      <section id="home-alt" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-32 px-4 py-20">
+      <section id="home-alt" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-20 sm:pt-24 md:pt-32 px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
         
         {/* --- Grid Background Image --- */}
         <div className="absolute inset-0 z-0 opacity-100" 
@@ -66,22 +66,22 @@ const HeroAlt: React.FC = () => {
         {/* =========================================
             CENTERED VERTICAL LAYOUT
            ========================================= */}
-        <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center space-y-8">
+        <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center space-y-6 sm:space-y-8">
           
           {/* Main Heading */}
-          <h1 className="font-semibold tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-sm" style={{ fontSize: '4rem' }}>
+          <h1 className="font-semibold tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-sm text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
             <span className="block text-[#0A2540]">Smarter Promotions</span>
             <span className="block text-[#0A2540]">for Shopify</span>
             <span className="block text-[#FF5A3C] mt-1">One Powerful App.</span>
           </h1>
 
           {/* Description */}
-          <p className="text-slate-600 leading-relaxed max-w-3xl animate-fade-in-up font-medium" style={{ animationDelay: '0.1s', fontSize: '1.2rem', lineHeight: '1rem' }}>
+          <p className="text-slate-600 leading-relaxed max-w-3xl animate-fade-in-up font-medium text-sm sm:text-base md:text-lg lg:text-xl px-4 sm:px-0" style={{ animationDelay: '0.1s' }}>
             Join the waitlist to get early access, launch updates, and special beta perks
           </p>
 
           {/* Join Waitlist Form */}
-          <div className="w-full max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="w-full max-w-2xl px-4 sm:px-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             {submitMessage ? (
               <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
                 <p className="text-green-800 font-semibold">{submitMessage}</p>
@@ -111,9 +111,8 @@ const HeroAlt: React.FC = () => {
           </div>
 
           {/* Autoplay Video */}
-          <div className="w-full max-w-6xl animate-fade-in-up relative" style={{ animationDelay: '0.3s' }}>
-            <div className="relative aspect-video rounded-2xl overflow-hidden bg-black" style={{ 
-              minHeight: '500px',
+          <div className="w-full max-w-6xl px-4 sm:px-6 lg:px-8 animate-fade-in-up relative" style={{ animationDelay: '0.3s' }}>
+            <div className="relative aspect-video rounded-lg sm:rounded-xl md:rounded-2xl overflow-hidden bg-black" style={{ 
               boxShadow: '0 20px 60px rgba(147, 51, 234, 0.4), 0 10px 30px rgba(147, 51, 234, 0.4)'
             }}>
               <video

@@ -8,30 +8,30 @@ interface CombinedItem {
 }
 
 const FeatureBenefitCard: React.FC<{ item: CombinedItem }> = ({ item }) => (
-  <div className="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300 h-full flex flex-col">
+  <div className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300 h-full flex flex-col">
     {/* Feature Icon */}
-    <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center mb-6 text-brand-600 shadow-sm">
-      {React.cloneElement(item.feature.icon as React.ReactElement<{ className?: string }>, { className: 'w-6 h-6' })}
+    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-50 rounded-lg sm:rounded-xl flex items-center justify-center mb-4 sm:mb-6 text-brand-600 shadow-sm">
+      {React.cloneElement(item.feature.icon as React.ReactElement<{ className?: string }>, { className: 'w-5 h-5 sm:w-6 sm:h-6' })}
     </div>
     
     {/* Feature Content */}
     <div className="flex-grow">
-      <h3 className="text-xl font-bold text-slate-900 mb-3">{item.feature.title}</h3>
+      <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3">{item.feature.title}</h3>
       <p className="text-slate-600 leading-relaxed text-sm md:text-base">
         {item.feature.description}
       </p>
     </div>
 
     {/* Divider */}
-    <div className="border-t border-slate-100 my-6"></div>
+    <div className="border-t border-slate-100 my-4 sm:my-6"></div>
 
     {/* Benefit Content */}
-    <div className="bg-brand-500 p-4 rounded-xl">
+    <div className="bg-brand-500 p-3 sm:p-4 rounded-lg sm:rounded-xl">
       <div>
-        <span className="block text-[15px] font-bold text-white tracking-widest uppercase mb-2">
+        <span className="block text-xs sm:text-[15px] font-bold text-white tracking-widest uppercase mb-1 sm:mb-2">
           BENEFIT
         </span>
-        <p className="text-sm font-medium text-white leading-relaxed">
+        <p className="text-xs sm:text-sm font-medium text-white leading-relaxed">
           {item.benefit.description}
         </p>
       </div>

@@ -84,10 +84,10 @@ const CTA: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl md:text-5xl font-semibold mb-6 tracking-tight text-[#95BF47]">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 sm:mb-6 tracking-tight text-[#95BF47]">
           Be the First to Try Smarter Promotions
         </h2>
-        <p className="text-xl text-white mb-10 max-w-2xl mx-auto font-medium">
+        <p className="text-base sm:text-lg md:text-xl text-white mb-8 sm:mb-10 max-w-2xl mx-auto font-medium px-4 sm:px-0">
           Run advanced, scalable promotions effortlessly with our custom Shopify app. No coding, no plugins required, get full control.
         </p>
 
@@ -98,7 +98,7 @@ const CTA: React.FC = () => {
               heroSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
           }}
-          className="px-8 py-4 bg-white text-black hover:bg-gray-100 font-bold text-lg shadow-lg rounded-lg transition-all duration-300 hover:scale-105"
+          className="px-6 sm:px-8 py-3 sm:py-4 bg-white text-black hover:bg-gray-100 font-bold text-base sm:text-lg shadow-lg rounded-lg transition-all duration-300 hover:scale-105"
         >
           Join Now
         </button>

@@ -25,14 +25,14 @@ const FAQ: React.FC = () => {
           {FAQS.map((faq, index) => (
             <div 
               key={index} 
-              className="bg-white rounded-xl border border-slate-200 overflow-hidden"
+              className="bg-white rounded-lg sm:rounded-xl border border-slate-200 overflow-hidden"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center p-6 text-left focus:outline-none focus:bg-slate-50 hover:bg-slate-50 transition-colors"
+                className="w-full flex justify-between items-center p-4 sm:p-6 text-left focus:outline-none focus:bg-slate-50 hover:bg-slate-50 transition-colors"
                 aria-expanded={openIndex === index}
               >
-                <span className="text-lg font-semibold text-slate-900 pr-8">
+                <span className="text-base sm:text-lg font-semibold text-slate-900 pr-4 sm:pr-8">
                   {faq.question}
                 </span>
                 <span 
@@ -49,7 +49,7 @@ const FAQ: React.FC = () => {
                   openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
-                <div className="p-6 pt-0 text-slate-600 leading-relaxed border-t border-transparent">
+                <div className="p-4 sm:p-6 pt-0 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-transparent">
                   {faq.answer}
                 </div>
               </div>
