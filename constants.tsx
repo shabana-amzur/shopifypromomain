@@ -88,7 +88,7 @@ export const BENEFITS: BenefitItem[] = [
 export const FAQS: FAQItem[] = [
   {
     question: "Is this app available on the Shopify App Store?",
-    answer: "Currently, it’s a custom Shopify app we configure based on your business needs. We work with you to implement and maintain it as part of our custom Shopify development services."
+    answer: "Our App is ready and we are in the process of getting it on the Shopify App Marketplace."
   },
   {
     question: "Will this app work with my current theme and storefront design?",
