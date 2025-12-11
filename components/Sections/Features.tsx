@@ -50,14 +50,14 @@ const Features: React.FC = () => {
     <section id="features" className="pt-16 md:pt-24 pb-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-base text-brand-600 font-semibold tracking-wide uppercase mb-2">
-            Why Choose ShopifyPromoHub
-          </h2>
+              <h2 className="text-base text-brand-600 font-semibold tracking-wide uppercase mb-2">
+                Why Choose Our Shopify Custom Promo App
+              </h2>
           <p className="text-3xl md:text-5xl font-semibold text-slate-900 mb-6 tracking-tight">
             Powerful Features, <br className="hidden md:block" /> Clear Benefits
           </p>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Everything you need to run smarter promotions, increase AOV, and save time—all in one place.
+            Everything you need to run smarter promotions, increase AOV, and save time, all in one place.
           </p>
         </div>
 
