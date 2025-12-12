@@ -50,9 +50,14 @@ const Header: React.FC = () => {
             <a 
               href="#home" 
               onClick={(e) => handleNavClick(e, '#home')}
-              className="text-2xl font-bold text-slate-900 tracking-tight"
+              className="flex items-center"
             >
-              {APP_NAME}
+              <img 
+                src="/SPH-V3.png" 
+                alt="Shopify Promo Logo" 
+                className="w-auto"
+                style={{ height: '2rem', minHeight: '100px' }}
+              />
             </a>
           </div>
 
