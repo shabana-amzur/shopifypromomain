@@ -72,7 +72,7 @@ const HeroAlt: React.FC = () => {
           <h1 className="font-semibold tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-sm" style={{ fontSize: '4rem' }}>
             <span className="block text-[#0A2540]">Smarter Promotions</span>
             <span className="block text-[#0A2540]">for Shopify</span>
-            <span className="block text-[#FF5A3C] mt-1">One Powerful App.</span>
+            <span className="block" style={{ color: '#ea580b', marginTop: '0.25rem' }}>One Powerful App.</span>
           </h1>
 
           {/* Description */}

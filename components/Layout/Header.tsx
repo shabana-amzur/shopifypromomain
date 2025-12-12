@@ -75,7 +75,8 @@ const Header: React.FC = () => {
             ))}
             <Button 
               variant="primary" 
-              className="rounded-full px-6 py-2 text-sm shadow-none bg-[#95BF47] hover:bg-[#86ac3d] border-[#95BF47]"
+              className="rounded-full px-6 py-2 text-sm shadow-none border-[#ea580b]"
+              style={{ backgroundColor: '#ea580b', color: '#fff' }}
               onClick={(e) => handleNavClick(e as any, '#home-alt')}
             >
               Join Waitlist

@@ -26,7 +26,7 @@ const FeatureBenefitCard: React.FC<{ item: CombinedItem }> = ({ item }) => (
     <div className="border-t border-slate-100 my-4 sm:my-6"></div>
 
     {/* Benefit Content */}
-    <div className="bg-brand-500 p-3 sm:p-4 rounded-lg sm:rounded-xl">
+    <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl" style={{ background: '#ea580b' }}>
       <div>
         <span className="block text-xs sm:text-[15px] font-bold text-white tracking-widest uppercase mb-1 sm:mb-2">
           BENEFIT
