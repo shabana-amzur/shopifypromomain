@@ -9,13 +9,13 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          50: '#fff7ed',
-          100: '#ffedd5',
-          200: '#fed7aa',
-          500: '#f97316', // Orange Primary
-          600: '#ea580c',
-          700: '#c2410c',
-          900: '#7c2d12',
+          50: '#FF5A3C',
+          100: '#FF5A3C',
+          200: '#FF5A3C',
+          500: '#FF5A3C', // Orange Primary
+          600: '#FF5A3C',
+          700: '#FF5A3C',
+          900: '#FF5A3C',
         },
         accent: {
           500: '#95BF47', // Custom Green
