@@ -1,4 +1,5 @@
 import React from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import HeroAlt from './components/Sections/HeroAlt';
@@ -17,6 +18,7 @@ const App: React.FC = () => {
         <CTA />
       </main>
       <Footer />
+      <SpeedInsights />
     </div>
   );
 };
