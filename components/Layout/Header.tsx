@@ -55,7 +55,8 @@ const Header: React.FC = () => {
               <img 
                 src="/SPH_Final_logo.png" 
                 alt="Shopify Promo Hub logo" 
-                className="h-10 w-auto"
+                className="w-auto"
+                style={{ height: '70px' }}
               />
             </a>
           </div>
