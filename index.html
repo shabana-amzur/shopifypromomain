@@ -141,27 +141,118 @@
 </script>
 <link rel="stylesheet" href="/index.css">
 
-    <!-- Structured Data (JSON-LD) for SEO -->
+    <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "ShopifyPromoHub",
+      "@id": "https://shopifypromohub.com/#software",
+      "name": "Shopify Promo Hub",
       "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Ecommerce Promotion Software",
+      "operatingSystem": "Web",
+      "description": "Shopify Promo Hub is a promotion management app for Shopify stores that enables marketers to create, schedule, and manage discounts, flash sales, and promotional campaigns without technical effort.",
+      "url": "https://shopifypromohub.com/",
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://shopifypromohub.com/#organization"
+      },
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "USD"
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/PreOrder"
       },
-      "operatingSystem": "Web",
-      "description": "Run advanced, scalable promotions effortlessly with our custom Shopify app. Advanced discounts, stackable offers, and fully synchronized campaigns. No coding required.",
-      "url": "https://shopifypromohub.com",
-      "screenshot": "https://shopifypromohub.com/og-image.jpg",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "ratingCount": "1"
+      "featureList": [
+        "Scheduled promotions and flash sales",
+        "Theme-compatible storefront integration",
+        "Admin-friendly promotion management",
+        "Performance-optimized discount engine",
+        "Reusable campaign templates"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://shopifypromohub.com/#organization",
+      "name": "shopifypromohub",
+      "url": "https://shopifypromohub.com/",
+      "logo": "https://shopifypromohub.com/SPH_Final_logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Support",
+        "email": "support@shopifypromohub.com"
       }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this app available on the Shopify App Store?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our app is ready and we are currently in the process of getting it listed on the Shopify App Marketplace."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will this app work with my current theme and storefront design?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The app integrates across product pages, collection pages, cart, and checkout, and can be customized to match your storefront’s look and feel."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this without technical knowledge?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. The app includes a user-friendly admin interface designed for marketing teams to manage promotions without requiring developer support."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will it slow down my site or conflict with other apps?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The app is optimized for performance and is built to reduce dependency on multiple third-party discount tools."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can it support flash sales or scheduled promotions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You can schedule campaigns in advance or create reusable templates for time-bound offers such as flash sales."
+          }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://shopifypromohub.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "FAQ",
+          "item": "https://shopifypromohub.com/faq"
+        }
+      ]
     }
     </script>
 </head>
