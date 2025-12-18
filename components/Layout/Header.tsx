@@ -53,10 +53,9 @@ const Header: React.FC = () => {
               className="flex items-center"
             >
               <img 
-                src="/SPH-V3.png" 
-                alt="Shopify Promo Logo" 
-                className="w-auto"
-                style={{ height: '2rem', minHeight: '100px' }}
+                src="/SPH_Final_logo.png" 
+                alt="Shopify Promo Hub logo" 
+                className="h-10 w-auto"
               />
             </a>
           </div>
