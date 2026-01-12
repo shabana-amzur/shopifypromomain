@@ -6,6 +6,7 @@ import HeroAlt from './components/Sections/HeroAlt';
 import Features from './components/Sections/Features';
 import FAQ from './components/Sections/FAQ';
 import CTA from './components/Sections/CTA';
+import ComingSoon from './components/Sections/ComingSoon';
 
 const SpeedInsightsBridge: React.FC = () => {
   useEffect(() => {
@@ -27,6 +28,7 @@ const App: React.FC = () => {
       <main className="flex-grow">
         <HeroAlt />
         <Features />
+        <ComingSoon />
         <FAQ />
         <CTA />
       </main>
