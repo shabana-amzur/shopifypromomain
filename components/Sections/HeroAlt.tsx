@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IconX } from '../Icons';
+import { useTrackingData } from '../../hooks/useTrackingData';
 
 const HeroAlt: React.FC = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -7,6 +8,7 @@ const HeroAlt: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
   const videoRef = useRef<HTMLVideoElement>(null);
+  const trackingData = useTrackingData();
 
   useEffect(() => {
     // Attempt to play video with sound
@@ -31,7 +33,7 @@ const HeroAlt: React.FC = () => {
       const response = await fetch('/api/join', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, sourcePage: 'hero-waitlist' }),
+        body: JSON.stringify({ email, sourcePage: 'hero-waitlist', tracking: trackingData }),
       });
 
       const data = await response.json();

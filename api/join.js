@@ -4,8 +4,33 @@ import { google } from 'googleapis';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+function toNullable(value) {
+  if (!value) {
+    return null;
+  }
+  const trimmed = String(value).trim();
+  return trimmed === '' ? null : trimmed;
+}
+
+function deriveTrafficSource(utmSource, refererUrl) {
+  if (utmSource && utmSource.trim() !== '') {
+    return utmSource;
+  }
+
+  if (refererUrl) {
+    try {
+      const url = new URL(refererUrl);
+      return url.hostname.replace(/^www\./, '');
+    } catch (error) {
+      return 'referral';
+    }
+  }
+
+  return 'direct';
+}
+
 // Google Sheets integration
-async function addToGoogleSheet(email, sourcePage, timestamp) {
+async function addToGoogleSheet(email, sourcePage, timestamp, trackingSummary) {
   try {
     // Check if Google Sheets is configured
     if (!process.env.GOOGLE_SHEETS_CREDENTIALS || !process.env.GOOGLE_SHEET_ID) {
@@ -20,13 +45,36 @@ async function addToGoogleSheet(email, sourcePage, timestamp) {
     });
 
     const sheets = google.sheets({ version: 'v4', auth });
+
+    const {
+      trafficSource,
+      utmSource,
+      utmMedium,
+      utmCampaign,
+      utmTerm,
+      utmContent,
+      refererUrl,
+      landingPage,
+    } = trackingSummary;
     
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'Sheet1!A:C', // Adjust range as needed
+      range: 'Sheet1!A:K', // Adjust range as needed
       valueInputOption: 'USER_ENTERED',
       requestBody: {
-        values: [[timestamp, email, sourcePage || 'waitlist']],
+        values: [[
+          timestamp,
+          email,
+          sourcePage || 'waitlist',
+          trafficSource || '',
+          utmSource || '',
+          utmMedium || '',
+          utmCampaign || '',
+          utmTerm || '',
+          utmContent || '',
+          refererUrl || '',
+          landingPage || '',
+        ]],
       },
     });
 
@@ -69,7 +117,31 @@ export default async function handler(req, res) {
       NOTIFY_TO: process.env.NOTIFY_TO ? 'Available' : 'Missing'
     });
 
-    const { email, sourcePage } = req.body || {};
+    const { email, sourcePage, tracking } = req.body || {};
+
+    const {
+      utmSource = '',
+      utmMedium = '',
+      utmCampaign = '',
+      utmTerm = '',
+      utmContent = '',
+      referrer = '',
+      landingPage = '',
+    } = tracking || {};
+
+    const refererHeader = req.headers['referer'] || req.headers['referrer'];
+    const refererUrl = referrer || (typeof refererHeader === 'string' ? refererHeader : '');
+    const trafficSource = deriveTrafficSource(utmSource, refererUrl);
+    const trackingSummary = {
+      trafficSource,
+      utmSource,
+      utmMedium,
+      utmCampaign,
+      utmTerm,
+      utmContent,
+      refererUrl,
+      landingPage,
+    };
 
     if (!email || typeof email !== 'string') {
       console.log('Email validation failed:', email);
@@ -107,11 +179,43 @@ export default async function handler(req, res) {
     }
 
     const result = await client.query(
-      `INSERT INTO subscribers (email, source_page)
-       VALUES ($1, $2)
-       ON CONFLICT (email) DO NOTHING
+      `INSERT INTO subscribers (
+         email,
+         source_page,
+         traffic_source,
+         referer_url,
+         utm_source,
+         utm_medium,
+         utm_campaign,
+         utm_term,
+         utm_content,
+         landing_page
+       )
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+       ON CONFLICT (email) DO UPDATE
+         SET source_page = EXCLUDED.source_page,
+             traffic_source = COALESCE(EXCLUDED.traffic_source, subscribers.traffic_source),
+             referer_url = COALESCE(EXCLUDED.referer_url, subscribers.referer_url),
+             utm_source = COALESCE(EXCLUDED.utm_source, subscribers.utm_source),
+             utm_medium = COALESCE(EXCLUDED.utm_medium, subscribers.utm_medium),
+             utm_campaign = COALESCE(EXCLUDED.utm_campaign, subscribers.utm_campaign),
+             utm_term = COALESCE(EXCLUDED.utm_term, subscribers.utm_term),
+             utm_content = COALESCE(EXCLUDED.utm_content, subscribers.utm_content),
+             landing_page = COALESCE(EXCLUDED.landing_page, subscribers.landing_page),
+             updated_at = NOW()
        RETURNING id`,
-      [email, sourcePage || 'waitlist']
+      [
+        email,
+        sourcePage || 'waitlist',
+        toNullable(trafficSource),
+        toNullable(refererUrl),
+        toNullable(utmSource),
+        toNullable(utmMedium),
+        toNullable(utmCampaign),
+        toNullable(utmTerm),
+        toNullable(utmContent),
+        toNullable(landingPage),
+      ]
     );
 
     await client.end();
@@ -119,7 +223,7 @@ export default async function handler(req, res) {
 
     // Add to Google Sheet
     const timestamp = new Date().toISOString();
-    await addToGoogleSheet(email, sourcePage, timestamp);
+    await addToGoogleSheet(email, sourcePage, timestamp, trackingSummary);
 
     // Send thank you email to the user
     let userEmailError = null;
@@ -165,6 +269,14 @@ export default async function handler(req, res) {
             <p>New waitlist signup:</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Source page:</strong> ${sourcePage || 'waitlist'}</p>
+            <p><strong>Traffic source:</strong> ${trackingSummary.trafficSource || 'unknown'}</p>
+            <p><strong>UTM Source:</strong> ${trackingSummary.utmSource || 'n/a'}</p>
+            <p><strong>UTM Medium:</strong> ${trackingSummary.utmMedium || 'n/a'}</p>
+            <p><strong>UTM Campaign:</strong> ${trackingSummary.utmCampaign || 'n/a'}</p>
+            <p><strong>UTM Term:</strong> ${trackingSummary.utmTerm || 'n/a'}</p>
+            <p><strong>UTM Content:</strong> ${trackingSummary.utmContent || 'n/a'}</p>
+            <p><strong>Referer:</strong> ${trackingSummary.refererUrl || 'n/a'}</p>
+            <p><strong>Landing Page:</strong> ${trackingSummary.landingPage || 'n/a'}</p>
             <p><strong>Time:</strong> ${new Date().toISOString()}</p>
           `
         );
