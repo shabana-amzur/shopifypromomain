@@ -29,6 +29,53 @@ function deriveTrafficSource(utmSource, refererUrl) {
   return 'direct';
 }
 
+function applyOrganicFallback(trackingSummary, refererUrl) {
+  if (!refererUrl) {
+    return trackingSummary;
+  }
+
+  try {
+    const url = new URL(refererUrl);
+    const hostname = url.hostname.replace(/^www\./, '').toLowerCase();
+    const searchParams = url.searchParams;
+
+    const updated = { ...trackingSummary };
+
+    const maybeSet = (key, value) => {
+      if (!updated[key] || updated[key].trim() === '') {
+        updated[key] = value;
+      }
+    };
+
+    if (hostname.includes('google.')) {
+      maybeSet('utmSource', 'google');
+      maybeSet('utmMedium', 'organic');
+      const keyword = searchParams.get('q') || searchParams.get('oq');
+      if (keyword) {
+        maybeSet('utmTerm', keyword);
+      }
+    } else if (hostname.includes('bing.')) {
+      maybeSet('utmSource', 'bing');
+      maybeSet('utmMedium', 'organic');
+      const keyword = searchParams.get('q');
+      if (keyword) {
+        maybeSet('utmTerm', keyword);
+      }
+    } else if (hostname.includes('yahoo.')) {
+      maybeSet('utmSource', 'yahoo');
+      maybeSet('utmMedium', 'organic');
+      const keyword = searchParams.get('p');
+      if (keyword) {
+        maybeSet('utmTerm', keyword);
+      }
+    }
+
+    return updated;
+  } catch (error) {
+    return trackingSummary;
+  }
+}
+
 // Google Sheets integration
 async function addToGoogleSheet(email, sourcePage, timestamp, trackingSummary) {
   try {
@@ -132,7 +179,7 @@ export default async function handler(req, res) {
     const refererHeader = req.headers['referer'] || req.headers['referrer'];
     const refererUrl = referrer || (typeof refererHeader === 'string' ? refererHeader : '');
     const trafficSource = deriveTrafficSource(utmSource, refererUrl);
-    const trackingSummary = {
+    let trackingSummary = {
       trafficSource,
       utmSource,
       utmMedium,
@@ -142,6 +189,9 @@ export default async function handler(req, res) {
       refererUrl,
       landingPage,
     };
+
+    trackingSummary = applyOrganicFallback(trackingSummary, refererUrl);
+    trackingSummary.trafficSource = deriveTrafficSource(trackingSummary.utmSource, refererUrl);
 
     if (!email || typeof email !== 'string') {
       console.log('Email validation failed:', email);
@@ -189,20 +239,10 @@ export default async function handler(req, res) {
          utm_campaign,
          utm_term,
          utm_content,
-         landing_page
+         landing_page,
+         updated_at
        )
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-       ON CONFLICT (email) DO UPDATE
-         SET source_page = EXCLUDED.source_page,
-             traffic_source = COALESCE(EXCLUDED.traffic_source, subscribers.traffic_source),
-             referer_url = COALESCE(EXCLUDED.referer_url, subscribers.referer_url),
-             utm_source = COALESCE(EXCLUDED.utm_source, subscribers.utm_source),
-             utm_medium = COALESCE(EXCLUDED.utm_medium, subscribers.utm_medium),
-             utm_campaign = COALESCE(EXCLUDED.utm_campaign, subscribers.utm_campaign),
-             utm_term = COALESCE(EXCLUDED.utm_term, subscribers.utm_term),
-             utm_content = COALESCE(EXCLUDED.utm_content, subscribers.utm_content),
-             landing_page = COALESCE(EXCLUDED.landing_page, subscribers.landing_page),
-             updated_at = NOW()
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, NOW())
        RETURNING id`,
       [
         email,
