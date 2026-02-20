@@ -14,10 +14,10 @@ const WhyChoose: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - Heading and Checklist */}
           <div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4" style={{ lineHeight: '1.2' }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4" style={{ lineHeight: '1.2' }}>
               Why Not Just Use Native Shopify Discounts?
             </h2>
-            <p className="font-medium text-slate-600 mb-8" style={{ fontSize: '19px' }}>
+            <p className="font-medium text-slate-600 mb-8 text-base sm:text-lg md:text-[19px]">
               Shopify's built-in discount system is limited.
             </p>
             <div className="space-y-4 mb-8">
@@ -28,13 +28,13 @@ const WhyChoose: React.FC = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </div>
-                  <p className="font-medium text-slate-900" style={{ fontSize: '19px' }}>
+                  <p className="font-medium text-slate-900 text-base sm:text-lg md:text-[19px]">
                     {feature}
                   </p>
                 </div>
               ))}
             </div>
-            <p className="font-bold text-slate-900" style={{ fontSize: '19px' }}>
+            <p className="font-bold text-slate-900 text-base sm:text-lg md:text-[19px]">
               PromoHub gives you precision, flexibility, and automation.
             </p>
           </div>

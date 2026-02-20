@@ -47,7 +47,7 @@ const LandingPage: React.FC = () => {
       <main className="flex-grow">
         <HeroAlt 
           headline={
-            <span className="block text-[#0A2540] font-bold" style={{ fontSize: '4rem', lineHeight: '1.2' }}>
+            <span className="block text-[#0A2540] font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ lineHeight: '1.2' }}>
               Increase AOV and Conversions with{' '}
               <span style={{ color: '#ea580b' }}>Smarter Shopify Promotions</span>
             </span>

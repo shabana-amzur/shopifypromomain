@@ -8,10 +8,10 @@ const BentoGrid: React.FC = () => {
           
           {/* Box 1 - Left Column Tall - How PromoHub Increases Revenue */}
           <div className="md:col-span-2 md:row-span-2 bg-[#ea580b] rounded-2xl p-6 md:p-8 shadow-lg flex flex-col justify-center">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 text-left" style={{ lineHeight: '1.2' }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 text-left" style={{ lineHeight: '1.2' }}>
               How PromoHub Increases Revenue
             </h2>
-            <p className="text-white/90 text-left leading-relaxed text-[19px] font-medium">
+            <p className="text-white/90 text-left leading-relaxed text-base sm:text-lg md:text-[19px] font-medium">
               Smart automation and intelligent promotion stacking that drives higher order values without sacrificing profit margins.
             </p>
           </div>
@@ -31,8 +31,8 @@ const BentoGrid: React.FC = () => {
               
               {/* Right Side - Content */}
               <div className="md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
-                <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-3">Auto-Applied Discounts</h3>
-                <p className="text-slate-600 leading-relaxed text-[19px] font-medium">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 mb-3">Auto-Applied Discounts</h3>
+                <p className="text-slate-600 leading-relaxed text-sm sm:text-base md:text-[19px] font-medium">
                   No codes required. Offers apply automatically at checkout. Higher conversion, less confusion.
                 </p>
               </div>
@@ -48,16 +48,16 @@ const BentoGrid: React.FC = () => {
                 className="w-12 h-12 md:w-16 md:h-16 object-contain"
               />
             </div>
-            <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-2">Tiered & Volume Incentives</h3>
-            <p className="text-[19px] font-medium text-slate-600 leading-relaxed">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 mb-2">Tiered & Volume Incentives</h3>
+            <p className="text-sm sm:text-base md:text-[19px] font-medium text-slate-600 leading-relaxed">
               Encourage larger carts with structured reward logic.
             </p>
           </div>
 
           {/* Box 4 - Middle Right - Smart Rule Builder */}
           <div className="md:col-span-2 bg-[#1a1a1a] rounded-2xl py-6 shadow-sm transition-all duration-300 text-center" style={{ paddingLeft: '3rem', paddingRight: '3rem' }}>
-            <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Smart Rule Builder</h3>
-            <p className="text-[19px] font-medium text-white/90 leading-relaxed mb-6">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Smart Rule Builder</h3>
+            <p className="text-sm sm:text-base md:text-[19px] font-medium text-white/90 leading-relaxed mb-6">
               Control promotions by product, cart value, location, tags, and more.
             </p>
             <button className="bg-white text-[#1a1a1a] px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-all duration-300 inline-flex items-center gap-2">
@@ -78,8 +78,8 @@ const BentoGrid: React.FC = () => {
             <div className="flex flex-col md:flex-row h-full">
               {/* Left Side - Content */}
               <div className="md:w-2/3 p-6 md:p-8 flex flex-col justify-center">
-                <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-3">Intelligent Offer Stacking</h3>
-                <p className="text-slate-600 leading-relaxed text-[19px] font-medium">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 mb-3">Intelligent Offer Stacking</h3>
+                <p className="text-slate-600 leading-relaxed text-sm sm:text-base md:text-[19px] font-medium">
                   Let customers combine promotions the right way without breaking your margins.
                 </p>
               </div>
@@ -141,8 +141,8 @@ const BentoGrid: React.FC = () => {
                 </svg>
               </div>
             </div>
-            <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-2">One App Instead of Many</h3>
-            <p className="text-[19px] font-medium text-slate-600 leading-relaxed">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 mb-2">One App Instead of Many</h3>
+            <p className="text-sm sm:text-base md:text-[19px] font-medium text-slate-600 leading-relaxed">
               Reduce app conflicts and eliminate unnecessary costs.
             </p>
           </div>

@@ -75,12 +75,12 @@ const Features: React.FC<FeaturesProps> = ({ sectionTitle, sectionDescription, m
               Why Choose Our Shopify Custom Promo App
             </h2>
           )}
-          <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight" style={{ marginBottom: '40px', lineHeight: '1.2' }}>
+          <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight" style={{ marginBottom: '40px', lineHeight: '1.2' }}>
             {sectionTitle || (
               <>Powerful Features, <br className="hidden md:block" /> Clear Benefits</>
             )}
           </p>
-          <p className="text-[19px] font-medium text-slate-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-[19px] font-medium text-slate-600 max-w-2xl mx-auto">
             {sectionDescription || "Everything you need to run smarter promotions, increase AOV, and save time, all in one place."}
           </p>
         </div>
