@@ -92,18 +92,30 @@ export const FAQS: FAQItem[] = [
   },
   {
     question: "Will this app work with my current theme and storefront design?",
-    answer: "Yes. The app integrates across PDPs, PLPs, cart, and checkout, and can be customized to match your storefront’s look and feel."
+    answer: "Yes. The app integrates across PDPs, PLPs, cart, and checkout, and can be customized to match your storefront's look and feel."
   },
   {
     question: "Can I use this without technical knowledge?",
     answer: "Absolutely. The app includes a user-friendly admin interface designed for marketing teams to manage promotions—no developer support required."
   },
   {
+    question: "What kind of promotions can I run?",
+    answer: "You can run percentage discounts, fixed amounts, BOGO, free shipping, tiered and conditional offers—all stackable and customizable with custom Shopify development flexibility."
+  },
+  {
     question: "Will it slow down my site or conflict with other apps?",
-    answer: "Not at all. It’s optimized for performance and built to reduce dependency on multiple third-party discount tools."
+    answer: "Not at all. It's optimized for performance and built to reduce dependency on multiple third-party discount tools."
   },
   {
     question: "Can it support flash sales or scheduled promotions?",
     answer: "Yes, you can schedule campaigns in advance or create reusable templates for time-bound offers like flash sales."
+  },
+  {
+    question: "How long does implementation take?",
+    answer: "Depending on your promotional needs, implementation typically takes 1–3 weeks. We ensure minimal disruption and full support throughout."
+  },
+  {
+    question: "What if I need ongoing changes or new promotion types later?",
+    answer: "The app is fully scalable and extendable."
   }
 ];

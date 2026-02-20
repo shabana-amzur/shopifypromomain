@@ -1,25 +1,16 @@
 import React from 'react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
-import Header from './components/Layout/Header';
-import Footer from './components/Layout/Footer';
-import HeroAlt from './components/Sections/HeroAlt';
-import Features from './components/Sections/Features';
-import FAQ from './components/Sections/FAQ';
-import CTA from './components/Sections/CTA';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import LandingPage from './pages/LandingPage';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      <Header />
-      <main className="flex-grow">
-        <HeroAlt />
-        <Features />
-        <FAQ />
-        <CTA />
-      </main>
-      <Footer />
-      <SpeedInsights />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/lp" element={<LandingPage />} />
+      </Routes>
+    </Router>
   );
 };
 

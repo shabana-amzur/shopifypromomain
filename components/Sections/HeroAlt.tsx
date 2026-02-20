@@ -1,7 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IconX } from '../Icons';
 
-const HeroAlt: React.FC = () => {
+interface HeroAltProps {
+  headline?: React.ReactNode;
+  description?: string;
+  ctaText?: string;
+}
+
+const HeroAlt: React.FC<HeroAltProps> = ({ headline, description, ctaText }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -73,14 +79,20 @@ const HeroAlt: React.FC = () => {
             className="font-semibold tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-sm text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
             style={{ wordBreak: 'break-word' }}
           >
-            <span className="block text-[#0A2540]">Smarter Promotions</span>
-            <span className="block text-[#0A2540]">for Shopify</span>
-            <span className="block" style={{ color: '#ea580b', marginTop: '0.25rem' }}>One Powerful App.</span>
+            {headline ? (
+              headline
+            ) : (
+              <>
+                <span className="block text-[#0A2540]">Smarter Promotions</span>
+                <span className="block text-[#0A2540]">for Shopify</span>
+                <span className="block" style={{ color: '#ea580b', marginTop: '0.25rem' }}>One Powerful App.</span>
+              </>
+            )}
           </h1>
 
           {/* Description */}
-          <p className="text-slate-600 leading-relaxed max-w-3xl animate-fade-in-up font-medium text-sm sm:text-base md:text-lg lg:text-xl px-4 sm:px-0" style={{ animationDelay: '0.1s' }}>
-            Join the waitlist to get early access, launch updates, and special beta perks
+          <p className="text-slate-600 leading-relaxed max-w-3xl animate-fade-in-up font-medium text-[19px] px-4 sm:px-0" style={{ animationDelay: '0.1s' }}>
+            {description || 'Join the waitlist to get early access, launch updates, and special beta perks'}
           </p>
 
           {/* Join Waitlist Form */}
@@ -104,7 +116,7 @@ const HeroAlt: React.FC = () => {
                   disabled={isSubmitting}
                   className="px-8 py-4 bg-[#95BF47] text-white font-bold rounded-xl hover:bg-slate-900 hover:text-white shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap animate-pulse-btn"
                 >
-                  {isSubmitting ? 'Joining...' : 'Join Waitlist'}
+                  {isSubmitting ? 'Joining...' : (ctaText || 'Join Waitlist')}
                 </button>
               </form>
             )}
